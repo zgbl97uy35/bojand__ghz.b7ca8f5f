@@ -156,12 +156,6 @@ func NewConfig(call, host string, options ...Option) (*RunConfig, error) {
 		loadSchedule: ScheduleConst,
 	}
 
-	// fix up durations
-	if c.z > 0 {
-		c.n = math.MaxInt32
-	}
-	baseN := c.n
-
 	// apply options
 	for _, option := range options {
 		err := option(c)
@@ -179,6 +173,11 @@ func NewConfig(call, host string, options ...Option) (*RunConfig, error) {
 
 	if c.call == "" {
 		c.call = strings.TrimSpace(call)
+	}
+
+	// fix up durations
+	if c.z > 0 {
+		c.n = math.MaxInt32
 	}
 
 	// checks
@@ -245,7 +244,7 @@ func NewConfig(call, host string, options ...Option) (*RunConfig, error) {
 		c.cStepDuration = time.Second
 	}
 
-	if c.skipFirst > 0 && int(c.skipFirst) > baseN {
+	if c.skipFirst > 0 && int(c.skipFirst) > c.n {
 		return nil, errors.New("you cannot skip more requests than those run")
 	}
 
