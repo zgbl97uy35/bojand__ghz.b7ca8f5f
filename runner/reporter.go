@@ -158,7 +158,7 @@ func (r *Reporter) Run() {
 	var skipCount int
 
 	for res := range r.results {
-		if skipCount <= r.config.skipFirst {
+		if skipCount < r.config.skipFirst {
 			skipCount++
 			continue
 		}
