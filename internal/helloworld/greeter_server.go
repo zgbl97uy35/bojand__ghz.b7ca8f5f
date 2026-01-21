@@ -194,7 +194,7 @@ func (s *Greeter) ResetCounters() {
 
 	if s.Stats != nil {
 		s.Stats.mutex.Lock()
-		s.Stats.connCount = 1
+		s.Stats.connCount = 0
 		s.Stats.mutex.Unlock()
 	}
 }
