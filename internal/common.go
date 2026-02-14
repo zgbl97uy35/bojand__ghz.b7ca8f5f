@@ -88,7 +88,7 @@ func StartSleepServer(secure bool) (*sleep.SleepService, *grpc.Server, error) {
 	sleep.RegisterSleepServiceServer(s, &ss)
 	reflection.Register(s)
 
-	TestPort = strconv.Itoa(lis.Addr().(*net.TCPAddr).Port + 1)
+	TestPort = strconv.Itoa(lis.Addr().(*net.TCPAddr).Port)
 	TestLocalhost = "localhost:" + TestPort
 
 	go func() {
