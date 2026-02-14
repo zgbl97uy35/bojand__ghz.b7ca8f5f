@@ -100,12 +100,13 @@ func (rp *ReportPrinter) getInfluxTags(addErrors bool) string {
 	dataStr := `""`
 	dataBytes, err := json.Marshal(options.Data)
 	if err == nil && len(dataBytes) > 0 {
-		dataStr = cleanInfluxString(string(dataBytes))
-		dataBytes, err = json.Marshal(dataStr)
+		dataBytes, err = json.Marshal(string(dataBytes))
 		if err == nil {
 			dataStr = string(dataBytes)
 		}
 	}
+
+	dataStr = cleanInfluxString(dataStr)
 
 	s = append(s, fmt.Sprintf("data=%s", dataStr))
 
@@ -113,12 +114,13 @@ func (rp *ReportPrinter) getInfluxTags(addErrors bool) string {
 	if options.Metadata != nil {
 		mdBytes, err := json.Marshal(options.Metadata)
 		if err == nil {
-			mdStr = cleanInfluxString(string(mdBytes))
-			mdBytes, err = json.Marshal(mdStr)
+			mdBytes, err = json.Marshal(string(mdBytes))
 			if err == nil {
 				mdStr = string(mdBytes)
 			}
 		}
+
+		mdStr = cleanInfluxString(mdStr)
 	}
 
 	s = append(s, fmt.Sprintf("metadata=%s", mdStr))
