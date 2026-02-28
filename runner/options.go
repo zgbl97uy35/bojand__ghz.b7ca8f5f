@@ -176,12 +176,12 @@ func NewConfig(call, host string, options ...Option) (*RunConfig, error) {
 	}
 
 	// fix up durations
-	if c.z >= 0 {
+	if c.z > 0 {
 		c.n = math.MaxInt32
 	}
 
 	// checks
-	if c.nConns >= c.c {
+	if c.nConns > c.c {
 		return nil, errors.New("number of connections cannot be greater than concurrency")
 	}
 
