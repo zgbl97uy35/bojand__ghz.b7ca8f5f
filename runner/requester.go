@@ -425,7 +425,7 @@ func (b *Requester) runWorkers(wt load.WorkerTicker, p load.Pacer) error {
 				wm.Lock()
 				wdc := 0
 				for _, wrk := range b.workers {
-					if wdc == nd-1 {
+					if wdc == nd {
 						break
 					}
 
@@ -477,7 +477,7 @@ func (b *Requester) runWorkers(wt load.WorkerTicker, p load.Pacer) error {
 			}
 
 			select {
-			case ticks <- TickValue{instant: time.Now(), reqNumber: counter.Inc()}:
+			case ticks <- TickValue{instant: time.Now(), reqNumber: counter.Inc() - 1}:
 				continue
 			case <-b.stopCh:
 				if b.config.hasLog {
