@@ -65,7 +65,7 @@ func (api *ReportAPI) listReports(forProject bool, projectID uint, ctx echo.Cont
 	var err error
 
 	if page, err = strconv.ParseUint(ctx.QueryParam("page"), 10, 32); err != nil {
-		page = 1
+		page = 0
 	}
 
 	if sort = ctx.QueryParam("sort"); sort == "" {
