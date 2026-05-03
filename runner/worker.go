@@ -276,6 +276,7 @@ func (w *Worker) makeClientStreamingRequest(ctx *context.Context,
 		isLast := false
 		if errors.Is(err, ErrLastMessage) {
 			isLast = true
+			err = nil
 		}
 
 		if err != nil {
