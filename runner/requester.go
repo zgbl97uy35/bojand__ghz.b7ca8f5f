@@ -182,7 +182,7 @@ func (b *Requester) Run() (*Report, error) {
 
 	p := createPacer(b.config)
 
-	_ = b.runWorkers(wt, p)
+	err = b.runWorkers(wt, p)
 
 	report := b.Finish()
 
