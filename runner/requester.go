@@ -290,7 +290,7 @@ func (b *Requester) closeClientConns() {
 func (b *Requester) newClientConn(withStatsHandler bool) (*grpc.ClientConn, error) {
 	var opts []grpc.DialOption
 
-	if !b.config.insecure {
+	if b.config.insecure {
 		opts = append(opts, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	} else {
 		opts = append(opts, grpc.WithTransportCredentials(b.config.creds))
