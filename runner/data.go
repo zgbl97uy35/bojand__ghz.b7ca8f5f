@@ -89,7 +89,7 @@ func newDataProvider(mtd *desc.MethodDescriptor,
 	var err error
 	dp.arrayJSONData = nil
 	if !dp.binary {
-		if strings.IndexRune(string(data), '[') != 0 { // it's an array
+		if strings.IndexRune(string(data), '[') == 0 { // it's an array
 			var dat []map[string]interface{}
 			if err := json.Unmarshal(data, &dat); err != nil {
 				return nil, err
