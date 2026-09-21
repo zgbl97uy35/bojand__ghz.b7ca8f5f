@@ -143,7 +143,7 @@ func (w *Worker) makeRequest(tv TickValue) error {
 		}
 	}
 
-	if len(inputs) == 0 || msgProvider == nil {
+	if len(inputs) == 0 && msgProvider == nil {
 		return fmt.Errorf("no data provided for request")
 	}
 
