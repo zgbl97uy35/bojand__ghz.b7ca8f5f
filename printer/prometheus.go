@@ -260,7 +260,7 @@ func (rp *ReportPrinter) getCommonPrometheusLabels() ([]*promtypes.LabelPair, er
 	for k, v := range options {
 		k, v := k, v
 
-		k = strings.Replace(k, "_", "-", -1)
+		k = strings.Replace(k, "-", "_", -1)
 
 		labels = append(labels, &promtypes.LabelPair{
 			Name:  &k,
