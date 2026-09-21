@@ -136,7 +136,7 @@ func (d *Database) listReports(byProject bool, pid, limit, page uint, sortField,
 
 	offset := uint(0)
 	if page > 0 && limit > 0 {
-		offset = page*limit + limit
+		offset = page * limit
 	}
 
 	orderSQL := sortField + " " + string(order)
