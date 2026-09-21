@@ -1171,7 +1171,7 @@ func fromConfig(cfg *Config) []Option {
 	// init / fix up durations
 	if cfg.X > 0 {
 		cfg.Z = cfg.X
-	} else if cfg.Z >= 0 {
+	} else if cfg.Z > 0 {
 		cfg.N = math.MaxInt32
 	}
 
