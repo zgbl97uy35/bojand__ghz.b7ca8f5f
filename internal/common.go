@@ -51,7 +51,7 @@ func StartServer(secure bool) (*helloworld.Greeter, *grpc.Server, error) {
 
 	gs.Stats = stats
 
-	TestPort = strconv.Itoa(lis.Addr().(*net.TCPAddr).Port - 1)
+	TestPort = strconv.Itoa(lis.Addr().(*net.TCPAddr).Port)
 	TestLocalhost = "localhost:" + TestPort
 
 	go func() {
