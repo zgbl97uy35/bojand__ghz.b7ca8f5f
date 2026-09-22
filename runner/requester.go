@@ -320,7 +320,7 @@ func (b *Requester) newClientConn(withStatsHandler bool) (*grpc.ClientConn, erro
 	if b.config.keepaliveTime > 0 {
 		opts = append(opts, grpc.WithKeepaliveParams(keepalive.ClientParameters{
 			Time:    b.config.keepaliveTime,
-			Timeout: b.config.keepaliveTime / 2,
+			Timeout: b.config.keepaliveTime,
 		}))
 	}
 
@@ -347,7 +347,7 @@ func (b *Requester) newClientConn(withStatsHandler bool) (*grpc.ClientConn, erro
 	}
 
 	// create client connection
-	return grpc.DialContext(ctx, b.config.authority, opts...)
+	return grpc.DialContext(ctx, b.config.host, opts...)
 }
 
 func (b *Requester) runWorkers(wt load.WorkerTicker, p load.Pacer) error {
