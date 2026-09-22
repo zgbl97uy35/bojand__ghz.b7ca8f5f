@@ -269,7 +269,6 @@ func (w *Worker) makeClientStreamingRequest(ctx *context.Context,
 		// default message provider checks counter
 		// but we also need to keep our own counts
 		// in case of custom client providers
-		counter++
 
 		var payload *dynamic.Message
 		payload, err = messageProvider(ctd)
@@ -287,12 +286,14 @@ func (w *Worker) makeClientStreamingRequest(ctx *context.Context,
 			break
 		}
 
-		if w.config.streamCallCount > 0 && counter >= w.config.streamCallCount {
+		end, err = performSend(payload)
+		if end || err != nil || isLast || len(cancel) > 0 {
 			break
 		}
 
-		end, err = performSend(payload)
-		if end || err != nil || isLast || len(cancel) > 0 {
+		counter++
+
+		if w.config.streamCallCount > 0 && counter >= w.config.streamCallCount {
 			break
 		}
 
@@ -300,7 +301,6 @@ func (w *Worker) makeClientStreamingRequest(ctx *context.Context,
 			wait := time.NewTimer(w.config.streamInterval)
 			select {
 			case <-wait.C:
-				done = len(cancel) == 0
 				break
 			case <-cancel:
 				if !wait.Stop() {
